@@ -1,21 +1,20 @@
-import moment from "moment"
+
 import { types } from "../types/types";
 
-const valoresInciales = {
+ // {
+    //     title: 'Cumpleanos del jefe',
+    //     cuerpo: 'LLevar Regalo',
+    //     start: moment().toDate(),
+    //     end: moment().add(2,'hours').toDate(),
+    //     id: Date.now(),
+    //     user: {
+    //         id: 1234567,
+    //         name: 'Oscar Ascencio'
+    //      }
+    // }
 
-eventos: [
-    {
-        title: 'Cumpleanos del jefe',
-        cuerpo: 'LLevar Regalo',
-        start: moment().toDate(),
-        end: moment().add(2,'hours').toDate(),
-        id: Date.now(),
-        user: {
-            id: 1234567,
-            name: 'Oscar Ascencio'
-         }
-    }
-], 
+const valoresInciales = {
+eventos: [], 
 eventoActivo: null
 }
 
@@ -46,6 +45,15 @@ export const calendarReducer = (state = valoresInciales, action) => {
                 ...state,
                 eventos: state.eventos.filter(evento => evento.id !== state.eventoActivo.id),
                 eventoActivo: null
+            }
+        case types.CargaEventos:
+            return {
+                ...state,
+                eventos: action.payload
+            }
+        case types.limiparEventosTotales:
+            return {
+                ...valoresInciales,
             }
         
         default:

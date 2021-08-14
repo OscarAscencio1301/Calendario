@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavBar } from '../../ui/NavBar'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -9,7 +9,7 @@ import { CalendarEvent } from './CalendarEvent'
 import { CalendarModal } from './CalendarModal'
 import { BtonAgregar } from '../../ui/BtonAgregar'
 import { useDispatch, useSelector } from 'react-redux'
-import { activarEvento, limpiarEvento } from '../../actions/calendarAct'
+import { activarEvento, inicioCargaEventos} from '../../actions/calendarAct'
 import { abrirModal } from '../../actions/uiAct'
 import { BotonBorrar } from '../../ui/BotonBorrar'
 
@@ -31,11 +31,16 @@ export const CalndarScreen = () => {
     const dispatch = useDispatch()
     const {eventos} = useSelector(state => state.calendario)
     const {eventoActivo} = useSelector(state => state.calendario)
+    const {uid} = useSelector(state => state.auth)
+
+    useEffect(() => {
+        dispatch(inicioCargaEventos())
+    }, [dispatch])
 
     const [vistaActual, setVistaActual] = useState(localStorage.getItem('VistaCalendar') || 'month')
-    const eventStyleGetter = () => {
+    const eventStyleGetter = (event) => {
         const style = {
-            backgroundColor: 'green',
+            backgroundColor: (uid === event.user._id) ? '#367CF7' : 'green',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block',

@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export const useForm = (valoresIniciales = {}) => {
     const [valores, setvalores] = useState(valoresIniciales)
+
+    
     const cambioInput = (e) => {
         setvalores({
             ...valores,

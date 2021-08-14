@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { eliminarEvento } from '../actions/calendarAct'
+import { inicioBorrarEvento } from '../actions/calendarAct'
 
 export const BotonBorrar = () => {
     const dispatch = useDispatch()
     const borrarEventoBoton = () => {
-        dispatch(eliminarEvento())
+        dispatch(inicioBorrarEvento())
 
     }
     return (
